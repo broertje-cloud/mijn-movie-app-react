@@ -10,12 +10,12 @@ export const MovieController = {
     }
   },
 
-  async fetchMovieDetail(id) {
-    try {
-      return await getMovieDetail(id);
-    } catch (error) {
-      console.error('Fout bij ophalen details:', error);
-      return null;
-    }
-  },
+async fetchMovieDetail(imdbID) {
+  try {
+    return await getMovieDetail(imdbID);
+  } catch (error) {
+    console.error('Fout bij ophalen details:', error);
+    throw new Error('Failed to load movie detail');
+  }
+}
 };

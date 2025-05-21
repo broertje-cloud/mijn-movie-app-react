@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { MovieController } from "../controllers/MovieController";
+import MovieDetailView from "../components/MovieDetailView";
 
 export default function MovieDetail() {
   const { imdbID } = useParams();
@@ -16,7 +17,7 @@ export default function MovieDetail() {
         setMovie(data);
       } catch (err) {
         console.error(err);
-        setError("Failed to load movie details.");
+        setError(err);
       } finally {
         setLoading(false);
       }
@@ -29,16 +30,5 @@ export default function MovieDetail() {
   if (error) return <p>{error}</p>;
   if (!movie) return <p>No movie found.</p>;
 
-  return (
-    <div style={{ padding: 20 }}>
-      <button onClick={() => navigate(-1)} style={{ marginBottom: 20 }}>
-        ← Terug naar zoeken
-      </button>
-
-      <h1>{movie.Title}</h1>
-      <p><strong>Year:</strong> {movie.Year}</p>
-      <p><strong>Plot:</strong> {movie.Plot}</p>
-      <img src={movie.Poster} alt={movie.Title} style={{ maxWidth: 300 }} />
-    </div>
-  );
+  return <MovieDetailView movie={movie}/>
 }
